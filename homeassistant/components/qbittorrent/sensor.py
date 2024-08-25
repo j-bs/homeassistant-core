@@ -30,9 +30,21 @@ SENSOR_TYPE_CURRENT_STATUS = "current_status"
 SENSOR_TYPE_DOWNLOAD_SPEED = "download_speed"
 SENSOR_TYPE_UPLOAD_SPEED = "upload_speed"
 SENSOR_TYPE_ALL_TORRENTS = "all_torrents"
+SENSOR_TYPE_DOWNLOADING = "active_downloads"
+SENSOR_TYPE_FORCED_DOWNLOADS = "forced_downloads"
+SENSOR_TYPE_UPLOADING = "active_downloads"
+SENSOR_TYPE_FORCED_UPLOADS = "forced_uploads"
 SENSOR_TYPE_PAUSED_TORRENTS = "paused_torrents"
 SENSOR_TYPE_ACTIVE_TORRENTS = "active_torrents"
 SENSOR_TYPE_INACTIVE_TORRENTS = "inactive_torrents"
+SENSOR_TYPE_ALLOCATING_TORRENTS = "allocating_torrents"
+SENSOR_TYPE_ERRORED_TORRENTS = "errored_torrents"
+SENSOR_TYPE_MOVING_TORRENTS = "moving_torrents"
+SENSOR_TYPE_CHECKING_TORRENTS = "checking_torrents"
+SENSOR_TYPE_CHECKING_DL_TORRENTS = "checking_downloads"
+SENSOR_TYPE_CHECKING_UP_TORRENTS = "checking_uploads"
+SENSOR_TYPE_STALLED_DL_TORRENTS = "stalled_downloads"
+SENSOR_TYPE_STALLED_UP_TORRENTS = "stalled_uploads"
 
 
 def get_state(coordinator: QBittorrentDataCoordinator) -> str:
@@ -105,6 +117,40 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         value_fn=lambda coordinator: count_torrents_in_states(coordinator, []),
     ),
     QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_DOWNLOADING,
+        translation_key="active_downloads",
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["downloading"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_FORCED_DOWNLOADS,
+        translation_key="forced_downloads",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["forcedDL"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_UPLOADING,
+        translation_key="active_uploads",
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["uploading"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_FORCED_UPLOADS,
+        translation_key="forced_uploads",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["forcedUP"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
         key=SENSOR_TYPE_ACTIVE_TORRENTS,
         translation_key="active_torrents",
         state_class=SensorStateClass.MEASUREMENT,
@@ -128,6 +174,66 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         native_unit_of_measurement="torrents",
         value_fn=lambda coordinator: count_torrents_in_states(
             coordinator, ["pausedDL", "pausedUP"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_ERRORED_TORRENTS,
+        translation_key="errored_torrents",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(coordinator, ["error"]),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_ALLOCATING_TORRENTS,
+        translation_key="allocating_torrents",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["allocating"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_MOVING_TORRENTS,
+        translation_key="moving_torrents",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(coordinator, ["moving"]),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_CHECKING_TORRENTS,
+        translation_key="checking_torrents",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["checkingDL", "checkingUP"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_CHECKING_DL_TORRENTS,
+        translation_key="checking_downloads",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["checkingDL"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_CHECKING_UP_TORRENTS,
+        translation_key="checking_uploads",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["checkingUP"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_STALLED_DL_TORRENTS,
+        translation_key="stalled_downloads",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["stalledDL"]
+        ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key=SENSOR_TYPE_STALLED_UP_TORRENTS,
+        translation_key="stalled_uploads",
+        native_unit_of_measurement="torrents",
+        value_fn=lambda coordinator: count_torrents_in_states(
+            coordinator, ["stalledUP"]
         ),
     ),
 )
