@@ -11,6 +11,7 @@ from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
     SensorEntityDescription,
+    SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import STATE_IDLE, UnitOfDataRate
@@ -73,6 +74,7 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         key=SENSOR_TYPE_CURRENT_STATUS,
         translation_key="current_status",
         device_class=SensorDeviceClass.ENUM,
+        state_class=SensorStateClass.MEASUREMENT,
         options=[STATE_IDLE, STATE_UP_DOWN, STATE_SEEDING, STATE_DOWNLOADING],
         value_fn=get_state,
     ),
@@ -80,6 +82,7 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         key=SENSOR_TYPE_DOWNLOAD_SPEED,
         translation_key="download_speed",
         device_class=SensorDeviceClass.DATA_RATE,
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfDataRate.BYTES_PER_SECOND,
         suggested_display_precision=2,
         suggested_unit_of_measurement=UnitOfDataRate.MEGABYTES_PER_SECOND,
@@ -89,6 +92,7 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         key=SENSOR_TYPE_UPLOAD_SPEED,
         translation_key="upload_speed",
         device_class=SensorDeviceClass.DATA_RATE,
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfDataRate.BYTES_PER_SECOND,
         suggested_display_precision=2,
         suggested_unit_of_measurement=UnitOfDataRate.MEGABYTES_PER_SECOND,
@@ -103,6 +107,7 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
     QBittorrentSensorEntityDescription(
         key=SENSOR_TYPE_ACTIVE_TORRENTS,
         translation_key="active_torrents",
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="torrents",
         value_fn=lambda coordinator: count_torrents_in_states(
             coordinator, ["downloading", "uploading"]
@@ -111,6 +116,7 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
     QBittorrentSensorEntityDescription(
         key=SENSOR_TYPE_INACTIVE_TORRENTS,
         translation_key="inactive_torrents",
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="torrents",
         value_fn=lambda coordinator: count_torrents_in_states(
             coordinator, ["stalledDL", "stalledUP"]

@@ -35,6 +35,21 @@
           "downloading": "Downloading"
         }
       },
+      "all_torrents": {
+        "name": "All torrents"
+      },
+      "active_downloads": {
+        "name": "Active downloads"
+      },
+      "forced_downloads": {
+        "name": "Forced downloads"
+      },
+      "active_uploads": {
+        "name": "Active uploads"
+      },
+      "forced_uploads": {
+        "name": "Forced uploads"
+      },
       "active_torrents": {
         "name": "Active torrents"
       },
@@ -44,8 +59,29 @@
       "paused_torrents": {
         "name": "Paused torrents"
       },
-      "all_torrents": {
-        "name": "All torrents"
+      "errored_torrents": {
+        "name": "Errored torrents"
+      },
+      "allocating_torrents": {
+        "name": "Allocating torrents"
+      },
+      "moving_torrents": {
+        "name": "Moving torrents"
+      },
+      "checking_torrents": {
+        "name": "Checking torrents"
+      },
+      "checking_downloads": {
+        "name": "Checking downloads"
+      },
+      "checking_uploads": {
+        "name": "Checking uploads"
+      },
+      "stalled_downloads": {
+        "name": "Stalled downloads"
+      },
+      "stalled_uploads": {
+        "name": "Stalled uploads"
       }
     },
     "switch": {
